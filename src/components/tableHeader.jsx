@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 
 const TableHeader = ({onSort, selectedSort, columns}) => {
     const hendlSort = (item) => {
-        if (selectedSort.itepath === item){
+        if (selectedSort.path === item){
             onSort({
                 ...selectedSort,
-                 order:selectedSort.order === 'asc'? 'desc':'asc'
+                 order: selectedSort.order === 'asc' ? 'desc' : 'asc'
             })
         }
         else{
@@ -29,10 +29,13 @@ const TableHeader = ({onSort, selectedSort, columns}) => {
         <tr>
             {Object.keys(columns).map((column) => (
                 <th key = {column} 
-                onClick={columns[column].path?() => hendlSort(columns[column].path):undefined} 
-                {...{role:columns[column].path&&'button'}}
+                onClick={columns[column].path
+                    ? () => hendlSort(columns[column].path)
+                    : undefined} 
+                {...{role:columns[column].path && 'button'}}
                 scope="col">
                 {columns[column].name}
+                {renderSortArrow(selectedSort, columns[column].path)}
                 </th>
             ))}
         </tr>
